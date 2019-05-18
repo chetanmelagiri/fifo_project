@@ -1,12 +1,12 @@
 class rd_sequencer extends uvm_sequencer #(read_xtn);
 	`uvm_component_utils(rd_sequencer)
 
-	extern function new(string name = "rd_sequencer", uvm_component parent);
+	extern function new(string name="rd_sequencer",uvm_component parent);
 endclass
 
-//New function
-function rd_sequencer::new(string name="rd_sequencer", uvm_component parent);
-	super.new(name, parent);
-endfunction
+//new
+	function rd_sequencer::new(string name="rd_sequencer", uvm_component parent);
+		super.new(name, parent);
+	endfunction
 
-
+	

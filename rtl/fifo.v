@@ -33,7 +33,7 @@ module fifo(clock, resetn,write_enb,read_enb,full,almost_empty,empty,data_in, da
 			end
 		end
 		else if (write_enb && ~full)begin
-			mem[wr_ptr[(PT_WIDTH-1):0]] <= data_in;
+			mem[wr_ptr] <= data_in;
 		end
         	else if(full)begin
             	$display("ERROR:FIFO IS FULL; CAN'T WRITE");
@@ -61,11 +61,12 @@ module fifo(clock, resetn,write_enb,read_enb,full,almost_empty,empty,data_in, da
     //Data is read when read_enb is asserted high and empty is asserted low.
 	always@(posedge clock)begin	
 		if(~resetn)begin
-			data_out <= DEPTH'b0;
+			data_out <= 'b0;
 		end
 
 		else if (read_enb && ~empty)begin
-			data_out <= mem[rd_ptr[(PT_WIDTH-1):0]];
+			//data_out <= mem[rd_ptr[(PT_WIDTH-1):0]];
+			data_out <= mem[rd_ptr];
 		end
 		else if(empty) begin
             		$display("ERROR:FIFO IS EMPTY; NOTHING TO READ");

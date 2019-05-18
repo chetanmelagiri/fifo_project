@@ -1,27 +1,26 @@
+
 class read_xtn extends uvm_sequence_item;
 	`uvm_object_utils(read_xtn)
-	rand bit	[7:0] data_in;
-	rand logic 	write_enb;
-	rand logic 	read_enb;
+	  
+	     bit	[7:0] data_in;
+	     logic 	write_enb;
+	     logic 	read_enb;
 	     bit 	[7:0] data_out;
 	     logic	full;
 	     logic 	empty;
-	     logic	almost_full;
+	     logic	almost_empty;
 
-	//constraints can be written here
-	
 
-	extern function new(string name = "read_xtn");
-	extern function void do_print(uvm_printer printer);
-//	extern function void post_randomize();
-
+		extern function new(string name = "read_xtn");
+		extern function void do_print(uvm_printer printer);
 endclass
-//Function new
-function read_xtn::new(string name="read_xtn");
-	super.new(name);
-endfunction
 
-//print method
+//new
+	function read_xtn::new(string name = "read_xtn");
+		super.new(name);
+	endfunction
+
+//print
 function void read_xtn::do_print(uvm_printer printer);
 	super.do_print(printer);
 	printer.print_field("write_enb",	this.write_enb,		1,	UVM_DEC);
@@ -33,5 +32,7 @@ function void read_xtn::do_print(uvm_printer printer);
 	printer.print_field("almost_empty",	this.almost_empty,	1,	UVM_DEC);
 endfunction:do_print
 
+    
 
 
+		
