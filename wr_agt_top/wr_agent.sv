@@ -23,7 +23,7 @@ endclass
 		if(!uvm_config_db #(wr_agent_config)::get(this,"","wr_agent_config",w_cfg))
 			`uvm_fatal("CONFIG", "cannot get() w_cfg from uvm_config_db. Have you set it?")
 				monh=wr_monitor::type_id::create("monh", this);
-				if(w_cfg.is_active==UVM_ACTIVE);
+				if(w_cfg.is_active==UVM_ACTIVE)
 					begin
 					
 						drvh=wr_driver::type_id::create("drvh", this);

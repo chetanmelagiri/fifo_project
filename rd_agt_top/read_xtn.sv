@@ -2,7 +2,6 @@
 class read_xtn extends uvm_sequence_item;
 	`uvm_object_utils(read_xtn)
 	  
-	     bit	[7:0] data_in;
 	     logic 	write_enb;
 	     logic 	read_enb;
 	     bit 	[7:0] data_out;

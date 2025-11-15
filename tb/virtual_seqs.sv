@@ -7,13 +7,16 @@ class vbase_seq extends uvm_sequence #(uvm_sequence_item);
 	virtual_sequencer vseqrh;
 
 	wr_seq_1 wr_seq_1h;
+	wr_seq_2 wr_seq_2h;
+	wr_seq_3 wr_seq_3h;
+	wr_seq_4 wr_seq_4h;
+	wr_seq_5 wr_seq_5h;
+	wr_seq_6 wr_seq_6h;
+	wr_seq_7 wr_seq_7h;
+	wr_seq_8 wr_seq_8h;
+	wr_seq_9 wr_seq_9h;
 	
-	
-
-//	rd_seq_1 rd_seq_1h;
-
-	
-
+	rd_seq_1 rd_seq_1h;
 
 	env_config e_cfg;
 
@@ -34,12 +37,10 @@ endclass
 	
 			wr_seqrh=new[e_cfg.no_of_wagent];
 			rd_seqrh=new[e_cfg.no_of_ragent];
-			assert($cast(vseqrh,m_sequencer)) 
-
-		else 
-				begin
+			if(!$cast(vseqrh,m_sequencer)) 
+			begin
   	  		`uvm_error("BODY", "Error in $cast of virtual sequencer")
-				end
+			end
 	
 		foreach(wr_seqrh[i])
 			 begin
