@@ -24,7 +24,6 @@ function void read_xtn::do_print(uvm_printer printer);
 	super.do_print(printer);
 	printer.print_field("write_enb",	this.write_enb,		1,	UVM_DEC);
 	printer.print_field("read_enb",		this.read_enb,		1,	UVM_DEC);
-	printer.print_field("data_in",		this.data_in,		8,	UVM_HEX);
 	printer.print_field("data_out",		this.data_out,		8,	UVM_HEX);
 	printer.print_field("full",		this.full,		1,	UVM_DEC);
 	printer.print_field("empty",		this.empty,		1,	UVM_DEC);

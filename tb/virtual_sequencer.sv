@@ -22,7 +22,7 @@ endclass
 			super.build_phase(phase);
 	
 		if(!uvm_config_db #(env_config)::get(this,"","env_config",e_cfg))
-			`uvm_fatal("CONFIG","Cannot get() e_cfg from uvm_congig_db. Have you set it?")
+			`uvm_fatal("CONFIG","Cannot get() e_cfg from uvm_config_db. Have you set it?")
 			wr_seqrh=new[e_cfg.no_of_wagent];
 			rd_seqrh=new[e_cfg.no_of_ragent];
 	endfunction

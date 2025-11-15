@@ -1,0 +1,244 @@
+# FIFO Simulation - Quick Reference Card
+
+## Installation & First Run (2 minutes)
+
+```bash
+# Navigate to project
+cd fifo_project
+
+# Validate setup
+python3 sim/validate.py
+
+# Run first test
+python3 sim/mock_sim.py
+```
+
+---
+
+## All Available Commands
+
+### Validate Project
+```bash
+python3 sim/validate.py
+```
+
+### Run Single Test
+```bash
+# Default test (seq_1_test)
+python3 sim/mock_sim.py
+
+# Specific test
+python3 sim/mock_sim.py -t seq_2_test
+
+# With seed
+python3 sim/mock_sim.py -t seq_1_test -s 42
+```
+
+### Run Multiple Tests
+```bash
+# Run 3 tests with 2 different seeds each (6 total)
+python3 sim/batch_test.py --tests seq_1_test seq_2_test seq_3_test -s 2
+
+# Run default tests
+python3 sim/batch_test.py
+
+# Run all 5 tests
+python3 sim/batch_test.py --tests seq_1_test seq_2_test seq_3_test seq_4_test seq_5_test
+```
+
+### Real Simulator (Cadence only)
+```bash
+# Single test
+python3 sim/quick_sim.py seq_1_test
+
+# With GUI
+python3 sim/quick_sim.py seq_1_test --gui
+
+# Full-featured
+python3 sim/run_sim.py -t seq_2_test -g -s 12345
+```
+
+### Cleanup
+```bash
+python3 sim/run_sim.py --clean
+```
+
+---
+
+## Test Names
+
+| Short | Full | Purpose |
+|-------|------|---------|
+| seq_1 | seq_1_test | Write 10, Read 8 |
+| seq_2 | seq_2_test | Sequential ops |
+| seq_3 | seq_3_test | Back-to-back |
+| seq_4 | seq_4_test | Stress test |
+| seq_5 | seq_5_test | Extended ops |
+
+---
+
+## Scripts at a Glance
+
+| Script | Purpose | Time | Requires |
+|--------|---------|------|----------|
+| validate.py | Check setup | 1s | Nothing |
+| mock_sim.py | Test without tools | <1s/test | Python 3 |
+| quick_sim.py | Fast sim | 30s/test | Cadence |
+| run_sim.py | Full featured | 30s/test | Cadence |
+| batch_test.py | Regression | 5s-2min | Python 3 |
+
+---
+
+## Common Scenarios
+
+### "I just want to test something quickly"
+```bash
+python3 sim/mock_sim.py -t seq_1_test
+```
+
+### "I need to run 5 different seeds"
+```bash
+python3 sim/batch_test.py -s 5
+```
+
+### "I want to see waveforms (with Cadence)"
+```bash
+python3 sim/run_sim.py -g -t seq_1_test
+```
+
+### "I'm in a CI/CD pipeline"
+```bash
+python3 sim/validate.py && python3 sim/batch_test.py
+```
+
+### "I want detailed help"
+```bash
+python3 sim/run_sim.py --help
+python3 sim/batch_test.py --help
+```
+
+---
+
+## Output Examples
+
+### Mock Simulator Output
+```
+[WRITE] Item 1: data_in=0x94, write_enb=1
+[WRITE] Item 2: data_in=0xb4, write_enb=1
+[READ] Item 1: data_out=0x12, read_enb=1
+✓ Test completed successfully!
+Elapsed Time: 0.18s
+```
+
+### Batch Test Output
+```
+✓ seq_1_test: PASSED
+✓ seq_2_test: PASSED
+✓ seq_3_test: PASSED
+Total: 3
+Passed: 3
+Failed: 0
+✓ ALL TESTS PASSED!
+```
+
+---
+
+## Troubleshooting Quick Fix
+
+| Problem | Solution |
+|---------|----------|
+| Module not found | Run from project root: `cd fifo_project` |
+| irun not found | Use `mock_sim.py` (no Cadence needed) |
+| Permission denied | Files are executable, just run with python3 |
+| UVM not found | Use `mock_sim.py` (UVM not needed) |
+
+---
+
+## Directory Map
+
+```
+fifo_project/
+├── sim/
+│   ├── validate.py          ✓ Start here
+│   ├── mock_sim.py          ✓ Most useful
+│   ├── batch_test.py        ✓ Regression
+│   ├── quick_sim.py         (with Cadence)
+│   ├── run_sim.py           (advanced)
+│   └── README.md            (detailed docs)
+├── rtl/                     (design files)
+├── tb/                      (testbench)
+├── test/                    (tests)
+├── wr_agt_top/              (write agent)
+├── rd_agt_top/              (read agent)
+└── PYTHON_SCRIPTS_GUIDE.md  (complete guide)
+```
+
+---
+
+## Environment (Optional)
+
+```bash
+# Set custom UVM path (if needed)
+export UVM_HOME=/path/to/uvm
+
+# Then run
+python3 sim/run_sim.py
+```
+
+---
+
+## Pro Tips
+
+1. **Start with validation**
+   ```bash
+   python3 sim/validate.py  # Takes 1 second
+   ```
+
+2. **Use seeds for reproducibility**
+   ```bash
+   python3 sim/mock_sim.py -s 12345
+   ```
+
+3. **Batch testing for regression**
+   ```bash
+   python3 sim/batch_test.py -s 10  # Run 10 seeds
+   ```
+
+4. **Combine with grep for logs**
+   ```bash
+   python3 sim/mock_sim.py | grep PASSED
+   ```
+
+5. **Run in background**
+   ```bash
+   nohup python3 sim/batch_test.py &
+   ```
+
+---
+
+## Exit Codes
+
+- **0** = Success
+- **1** = Failed test or error
+- **2** = Invalid arguments
+
+Check exit code:
+```bash
+python3 sim/mock_sim.py
+echo "Exit code: $?"
+```
+
+---
+
+## Quick Links
+
+- **Full Guide:** `PYTHON_SCRIPTS_GUIDE.md`
+- **Sim Docs:** `sim/README.md`
+- **UVM Testbench:** `test/test.sv`
+- **FIFO RTL:** `rtl/fifo.v`
+
+---
+
+**Last Updated:** November 15, 2025  
+**Version:** 1.0  
+**Status:** Ready to use ✓

@@ -20,15 +20,15 @@ endclass
 //build
 	function void tb::build_phase(uvm_phase phase);
 		if(!uvm_config_db #(env_config)::get(this, "","env_config",e_cfg))
-			`uvm_fatal("CONFIG", "Cannot get() e_cfg  from uvm_config")
+			`uvm_fatal("CONFIG", "Cannot get() e_cfg from uvm_config_db")
 					
-			super.build_phase(phase);
+		super.build_phase(phase);
 
-			if(e_cfg.has_wtop==1) 
-				 wtop=wr_agent_top::type_id::create("wtop",this);
+		if(e_cfg.has_wtop==1) 
+			 wtop=wr_agent_top::type_id::create("wtop",this);
 
-    		 if(e_cfg.has_rtop==1) 
-			 	 rtop=rd_agent_top::type_id::create("rtop",this);
+    	 if(e_cfg.has_rtop==1) 
+		 	 rtop=rd_agent_top::type_id::create("rtop",this);
 							
    		   if(e_cfg.has_virtual_sequencer)
 	     		v_seqrh=virtual_sequencer::type_id::create("v_seqrh",this);

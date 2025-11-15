@@ -47,6 +47,7 @@ endclass
 			@(vif.rmon_cb);	
 				begin
 				
+				data_sent.write_enb=vif.rmon_cb.write_enb;
 				data_sent.read_enb=vif.rmon_cb.read_enb;
 				data_sent.full=vif.rmon_cb.full;
 				data_sent.empty=vif.rmon_cb.empty;
